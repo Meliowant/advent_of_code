@@ -2,13 +2,6 @@
 
 def next_pos(cur_pos, shift, line):
     new_pos = (cur_pos + shift) % (len(line))
-    # if cur_pos + shift >= len(line):
-    #     new_pos = cur_pos + shift - len(line) + 1
-    # else:
-    #     new_pos = cur_pos + shift
-
-    # print(f"New position: {new_pos}, has tree: {is_tree(line, new_pos)}")
-    #print(f"{new_pos}: {line}\n{new_pos}: {' ' * (new_pos)}^")
     return new_pos
 
 
@@ -21,6 +14,7 @@ steps = 0
 # Read the file
 with open("demo.txt", "r") as data:
     line = data.readline()
+    line = line.strip('\n')
     line = data.readline()
     line = line.strip('\n')
     pos = 0

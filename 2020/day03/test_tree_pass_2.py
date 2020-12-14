@@ -1,32 +1,41 @@
 #!/usr/bin/python3
 import pytest
-from tree_pass_2 import next_pos, is_tree
+from tree_pass_2 import next_pos, is_tree, next_line
 
 
 @pytest.mark.parametrize(
-    opts,[
+    "opts",
+    [
         {
-            "test_name": "Initial position",
-
+            "test_name": "",
+            "x_pos": 0,
+            "step": 2,
+            "line": "..X.",
+            "exp_position": 2
         },
         {
-            "test_name": "In the middle",
+            "test_name": "",
+            "x_pos": 2,
+            "step": 2,
+            "line": "..X.",
+            "exp_position": 0,
         },
         {
-            "test_name": "Last X position, first line"
+            "test_name": "",
+            "x_pos": 1,
+            "step": 2,
+            "line": "..X.",
+            "exp_position": 3,
         },
-        {
-            "test_name": "Last X position, two lines passed"
-        },
-        {
-            "test_name": "Next coordination must rewind the line"
-        },
-
     ]
 )
-def test_next_pos():
-    new_pos = next_pos(index=0, lines_to_skip=2, line="")
-    assert new_pos == 2
+def test_next_pos(opts):
+    new_pos = next_pos(
+        x_pos=opts["x_pos"],
+        step=opts["step"],
+        line=opts["line"]
+    )
+    assert new_pos == opts["exp_position"]
 
 
 @pytest.mark.parametrize(
@@ -47,11 +56,3 @@ def test_next_pos():
 def test_is_tree(opt):
     test_value = is_tree(opt["line"], 0)
     assert test_value == opt["is_tree"]
-
-
-def test_slopes():
-    """
-        Check the slope's correct movement
-    """
-
-    pass

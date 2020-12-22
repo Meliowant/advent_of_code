@@ -44,7 +44,9 @@ from year2020.conftest import format_name
     ids=format_name,
 )
 def test_locate_seat(opts):
-    res = locate_seat(data=opts["rows"], low=opts["low_value"], high=opts["high_value"])
+    res = locate_seat(
+        data=opts["rows"], low=opts["low_value"], high=opts["high_value"]
+    )
     assert res == opts["exp_result"]
 
 
@@ -90,9 +92,21 @@ def test_extract_seat_params(opts):
 @pytest.mark.parametrize(
     "opts",
     [
-        {"test_name": "My seat is missing", "seats": [1, 2, 4, 5], "my_seat": 3},
-        {"test_name": "My seat is missing", "seats": [5, 4, 2, 1], "my_seat": 3},
-        {"test_name": "My seat is missing", "seats": [4, 5, 7, 8], "my_seat": 6},
+        {
+            "test_name": "My seat is missing",
+            "seats": [1, 2, 4, 5],
+            "my_seat": 3,
+        },
+        {
+            "test_name": "My seat is missing",
+            "seats": [5, 4, 2, 1],
+            "my_seat": 3,
+        },
+        {
+            "test_name": "My seat is missing",
+            "seats": [4, 5, 7, 8],
+            "my_seat": 6,
+        },
     ],
 )
 def test_detect_my_seat(opts):

@@ -29,10 +29,12 @@ def extract_passport_values(passport):
     return rv
 
 
-def is_valid_passport(passport: dict = {}, mandatory: dict = {}, optional: dict = {}):
-    if len(passport.keys()) < len(mandatory) or len(mandatory) + len(optional) < len(
-        passport.keys()
-    ):
+def is_valid_passport(
+    passport: dict = {}, mandatory: dict = {}, optional: dict = {}
+):
+    if len(passport.keys()) < len(mandatory) or len(mandatory) + len(
+        optional
+    ) < len(passport.keys()):
         return False
     pass_copy = dict(passport)
     for k in mandatory:
@@ -60,7 +62,9 @@ def solve_the_task():
             optional=["cid"],
         ):
             valid_passports += 1
-    print(f"You have {valid_passports} of {passports} valid passports in the file.")
+    print(
+        f"You have {valid_passports} of {passports} valid passports in the file."
+    )
 
 
 if __name__ == "__main__":

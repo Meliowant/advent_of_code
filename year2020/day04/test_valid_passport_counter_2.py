@@ -260,7 +260,11 @@ def test_is_valid_key_hgt(opts):
             "value": "#fffffg",
             "is_valid": False,
         },
-        {"test_name": "Invalid hair color: #fffg", "value": "#fffg", "is_valid": False},
+        {
+            "test_name": "Invalid hair color: #fffg",
+            "value": "#fffg",
+            "is_valid": False,
+        },
         {
             "test_name": "Invalid hair color: #fffffg",
             "value": "fffffg",
@@ -344,8 +348,16 @@ def test_is_valid_key_hcl_invalid(opts):
 @pytest.mark.parametrize(
     "opts",
     [
-        {"test_name": "Valid PID: 111111111", "value": "111111111", "is_valid": True},
-        {"test_name": "Valid PID: 000000001", "value": "000000001", "is_valid": True},
+        {
+            "test_name": "Valid PID: 111111111",
+            "value": "111111111",
+            "is_valid": True,
+        },
+        {
+            "test_name": "Valid PID: 000000001",
+            "value": "000000001",
+            "is_valid": True,
+        },
         {"test_name": "Invalid PID: <empty>", "value": "", "is_valid": False},
         {
             "test_name": "Invalid PID: no digits",

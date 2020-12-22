@@ -6,7 +6,13 @@ from tree_pass_2 import next_pos, is_tree, next_line
 @pytest.mark.parametrize(
     "opts",
     [
-        {"test_name": "", "x_pos": 0, "step": 2, "line": "..X.", "exp_position": 2},
+        {
+            "test_name": "",
+            "x_pos": 0,
+            "step": 2,
+            "line": "..X.",
+            "exp_position": 2,
+        },
         {
             "test_name": "",
             "x_pos": 2,
@@ -24,7 +30,9 @@ from tree_pass_2 import next_pos, is_tree, next_line
     ],
 )
 def test_next_pos(opts):
-    new_pos = next_pos(x_pos=opts["x_pos"], step=opts["step"], line=opts["line"])
+    new_pos = next_pos(
+        x_pos=opts["x_pos"], step=opts["step"], line=opts["line"]
+    )
     assert new_pos == opts["exp_position"]
 
 

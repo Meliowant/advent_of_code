@@ -39,7 +39,9 @@ from year2020.conftest import format_name
     ids=format_name,
 )
 def test_locate_seat(opts):
-    res = locate_seat(data=opts["rows"], low=opts["low_value"], high=opts["high_value"])
+    res = locate_seat(
+        data=opts["rows"], low=opts["low_value"], high=opts["high_value"]
+    )
     assert res == opts["exp_result"]
 
 

@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 import re
 
-def extract_passports(passport_file:str = ""):
+
+def extract_passports(passport_file: str = ""):
     with open(passport_file, "r") as f:
         passport = []
         for line in f:
@@ -29,9 +30,12 @@ def extract_passport_values(passport):
     return rv
 
 
-def is_valid_passport(passport:dict={}, mandatory:list=[], optional:list=[]):
-    if len(passport.keys()) < len(mandatory) or \
-            len(mandatory) + len(optional) < len(passport.keys()):
+def is_valid_passport(
+    passport: dict = {}, mandatory: list = [], optional: list = []
+):
+    if len(passport.keys()) < len(mandatory) or len(mandatory) + len(
+        optional
+    ) < len(passport.keys()):
         return False
     pass_copy = dict(passport)
     for k in mandatory:
@@ -47,14 +51,14 @@ def is_valid_passport(passport:dict={}, mandatory:list=[], optional:list=[]):
     return len(pass_copy) == 0
 
 
-def validate_fields(passport:dict={}):
+def validate_fields(passport: dict = {}):
     valid_fields = []
     for k, v in passport.items():
         valid_fields.append(is_valid_field(k, v))
     return all(valid_fields)
 
 
-def is_valid_field(field:str="", value:str=""):
+def is_valid_field(field: str = "", value: str = ""):
     is_valid = False
     if field == "byr":
         is_valid = byr_is_valid(value)
@@ -75,28 +79,28 @@ def is_valid_field(field:str="", value:str=""):
     return is_valid
 
 
-def byr_is_valid(value:str):
+def byr_is_valid(value: str):
     expr = r"^[0-9]{4}$"
     if not re.match(expr, value):
         return False
     return 1920 <= int(value) <= 2002
 
 
-def iyr_is_valid(value:str):
+def iyr_is_valid(value: str):
     expr = r"^[0-9]{4}$"
     if not re.match(expr, value):
         return False
     return 2010 <= int(value) <= 2020
 
 
-def eyr_is_valid(value:str):
+def eyr_is_valid(value: str):
     expr = r"^[0-9]{4}$"
     if not re.match(expr, value):
         return False
     return 2020 <= int(value) <= 2030
 
 
-def hgt_is_valid(value:str):
+def hgt_is_valid(value: str):
     expr = r"^(?P<height>[0-9]{2,3})(?P<units>(in|cm))$"
     matched = re.match(expr, value)
     if not matched:
@@ -105,16 +109,18 @@ def hgt_is_valid(value:str):
     max_value = 193 if matched.groupdict().get("units") == "cm" else 76
     return min_value <= int(matched.groupdict().get("height")) <= max_value
 
-def hcl_is_valid(value:str):
+
+def hcl_is_valid(value: str):
     expr = r"^\#([0-9a-f]{6})$"
     matched = re.match(expr, value)
     return matched is not None
 
-def ecl_is_valid(value:str):
+
+def ecl_is_valid(value: str):
     return value in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
 
 
-def pid_is_valid(value:str):
+def pid_is_valid(value: str):
     expr = r"^[0-9]{9}$"
     return re.match(expr, value) is not None
 
@@ -126,16 +132,17 @@ def solve_the_task():
     for passport_records in passport_records:
         passports += 1
         passport = extract_passport_values(passport_records)
-        if is_valid_passport(
+        valid_pass = is_valid_passport(
             passport,
-            mandatory=[
-                "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"
-            ],
-            optional=["cid"]
-        ) and validate_fields(passport):
+            mandatory=["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"],
+            optional=["cid"],
+        )
+        if valid_pass and validate_fields(passport):
             valid_passports += 1
-    print(f"You have {valid_passports} of {passports} valid passports in the file.")
+    print(
+        f"You have {valid_passports} of {passports} valid passports in the file."
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     solve_the_task()

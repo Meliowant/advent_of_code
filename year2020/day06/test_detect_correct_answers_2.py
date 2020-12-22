@@ -2,8 +2,11 @@ from year2020.conftest import format_name
 import pytest
 
 from detect_yes_answers_2 import (
-    extract_groups_unique_answers, extract_answers, solve_the_task
+    extract_groups_unique_answers,
+    extract_answers,
+    solve_the_task,
 )
+
 
 @pytest.mark.parametrize(
     "opts",
@@ -11,20 +14,20 @@ from detect_yes_answers_2 import (
         {
             "test_name": "No repetitive answers",
             "data": ["abc", "def"],
-            "unique_answers": 0
+            "unique_answers": 0,
         },
         {
             "test_name": "One repetitive answer",
             "data": ["abc", "ade"],
-            "unique_answers": 1
+            "unique_answers": 1,
         },
         {
             "test_name": "Multiple groups same answer",
             "data": ["a", "a", "a", "a"],
-            "unique_answers": 1
-        }
+            "unique_answers": 1,
+        },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_extract_groups_unique_answers(opts):
     res = extract_groups_unique_answers(opts["data"])
@@ -37,25 +40,25 @@ def test_extract_groups_unique_answers(opts):
         {
             "test_name": "Single group, all answers unique",
             "data": [["ab", "cd"]],
-            "total_answers": 0
+            "total_answers": 0,
         },
         {
             "test_name": "Multiple groups, all answers unique",
             "data": [["ab", "cd"], ["ef", "gh"]],
-            "total_answers": 0
+            "total_answers": 0,
         },
         {
             "test_name": "Multiple groups, all answers intersect",
             "data": [["ab", "ab"], ["ab", "cd"]],
-            "total_answers": 2
+            "total_answers": 2,
         },
         {
             "test_name": "Multiple groups, all answers same",
             "data": [["ab"], ["ab"]],
-            "total_answers": 4
+            "total_answers": 4,
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_extract_answers(opts):
     res = extract_answers(opts["data"])

@@ -17,7 +17,9 @@ def extract_groups_unique_answers(answers_list):
 
 
 def extract_answers(all_answers):
-    all_answers_count = [len(extract_groups_unique_answers(x)) for x in all_answers]
+    all_answers_count = [
+        len(extract_groups_unique_answers(x)) for x in all_answers
+    ]
     print(all_answers_count)
     total_yes_answers = sum(all_answers_count)
     return total_yes_answers

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 
-def extract_passports(passport_file:str = ""):
+def extract_passports(passport_file: str = ""):
     with open(passport_file, "r") as f:
         passport = []
         for line in f:
@@ -29,9 +29,10 @@ def extract_passport_values(passport):
     return rv
 
 
-def is_valid_passport(passport:dict={}, mandatory:dict={}, optional:dict={}):
-    if len(passport.keys()) < len(mandatory) or \
-            len(mandatory) + len(optional) < len(passport.keys()):
+def is_valid_passport(passport: dict = {}, mandatory: dict = {}, optional: dict = {}):
+    if len(passport.keys()) < len(mandatory) or len(mandatory) + len(optional) < len(
+        passport.keys()
+    ):
         return False
     pass_copy = dict(passport)
     for k in mandatory:
@@ -55,14 +56,12 @@ def solve_the_task():
         passports += 1
         if is_valid_passport(
             extract_passport_values(passport),
-            mandatory=[
-                "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"
-            ],
-            optional=["cid"]
+            mandatory=["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"],
+            optional=["cid"],
         ):
             valid_passports += 1
     print(f"You have {valid_passports} of {passports} valid passports in the file.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     solve_the_task()

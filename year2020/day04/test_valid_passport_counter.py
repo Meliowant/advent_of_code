@@ -1,11 +1,15 @@
 import pytest
 
 from valid_passport_counter import (
-    extract_passports, extract_passport_values, is_valid_passport
+    extract_passports,
+    extract_passport_values,
+    is_valid_passport,
 )
+
 
 def format_name(param):
     return param.get("test_name").replace(" ", "_")
+
 
 def test_extract_passports():
     assert len(list(extract_passports("demo.txt"))) == 2
@@ -15,23 +19,15 @@ def test_extract_passports():
 @pytest.mark.parametrize(
     "opts",
     [
-        {
-            "test_name": "Single value",
-            "input": "a:b",
-            "output": {"a": "b"}
-        },
+        {"test_name": "Single value", "input": "a:b", "output": {"a": "b"}},
         {
             "test_name": "Multiple values",
             "input": "a:b c:d",
-            "output": {"a": "b", "c": "d"}
+            "output": {"a": "b", "c": "d"},
         },
-        {
-            "test_name": "No values",
-            "input": "",
-            "output": {}
-        }
+        {"test_name": "No values", "input": "", "output": {}},
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_extract_passport_values(opts):
     res = extract_passport_values(opts["input"])
@@ -77,14 +73,14 @@ def test_extract_passport_values(opts):
             "mandatory": ["a"],
             "optional": [],
             "is_valid": False,
-        }
+        },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_is_valid_passport(opts):
     is_valid = is_valid_passport(
         passport=opts["passport"],
         mandatory=opts["mandatory"],
-        optional=opts["optional"]
+        optional=opts["optional"],
     )
     assert is_valid is opts["is_valid"]

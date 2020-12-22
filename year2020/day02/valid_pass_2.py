@@ -2,7 +2,7 @@
 
 import re
 
-passline = re.compile(r'(?P<first>\d+)-(?P<second>\d+) (?P<char>.): (?P<phrase>.*)')
+passline = re.compile(r"(?P<first>\d+)-(?P<second>\d+) (?P<char>.): (?P<phrase>.*)")
 total = 0
 with open("input.txt", "r") as f:
     line = f.readline()
@@ -17,9 +17,8 @@ with open("input.txt", "r") as f:
 
         if matched:
             times = passwd.count(charv)
-            if int(passwd[first-1] == charv) ^ int(passwd[second-1] == charv):
+            if int(passwd[first - 1] == charv) ^ int(passwd[second - 1] == charv):
                 valid_passwords += 1
         line = f.readline()
 
 print(f"Found {valid_passwords} valid of {total} total passwords.")
-

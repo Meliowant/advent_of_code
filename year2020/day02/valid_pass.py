@@ -2,7 +2,7 @@
 
 import re
 
-passline = re.compile(r'(?P<min>\d+)-(?P<max>\d+) (?P<char>.): (?P<phrase>.*)')
+passline = re.compile(r"(?P<min>\d+)-(?P<max>\d+) (?P<char>.): (?P<phrase>.*)")
 total = 0
 with open("input.txt", "r") as f:
     line = f.readline()
@@ -21,7 +21,9 @@ with open("input.txt", "r") as f:
                 valid_passwords += 1
                 print(f"Password {passwd} in line {total} is valid")
             else:
-                print(f"Password {passwd} should have {minv}-{maxv} of '{charv}', but has {times}")
+                print(
+                    f"Password {passwd} should have {minv}-{maxv} of '{charv}', but has {times}"
+                )
         line = f.readline()
 
 print(f"Found {valid_passwords} valid of {total} total passwords.")

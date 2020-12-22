@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 def locate_seat(data="", low="", high=""):
     rv = 0
     for itm in data:
@@ -21,8 +22,8 @@ def extract_seat_params(data):
 
 def detect_my_seat(seats):
     seats.sort()
-    for idx in range(len(seats)-1):
-        if seats[idx+1] - seats[idx] != 1:
+    for idx in range(len(seats) - 1):
+        if seats[idx + 1] - seats[idx] != 1:
             return seats[idx] + 1
     return None
 
@@ -41,5 +42,5 @@ def solve_the_task():
     print(f"Your seat is '{detect_my_seat(seat_ids_only)}'.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     solve_the_task()

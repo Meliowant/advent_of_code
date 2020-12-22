@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 def next_pos(x_pos, step, line):
     new_x_pos = (x_pos + step) % len(line)
     return new_x_pos
@@ -8,7 +9,7 @@ def next_pos(x_pos, step, line):
 def next_line(fd, stop_on_line):
     for i in range(stop_on_line):
         line = fd.readline()
-        line = line.strip('\n')
+        line = line.strip("\n")
     return line
 
 
@@ -16,7 +17,7 @@ def is_tree(line, pos):
     return line[pos] == "#"
 
 
-def trace_path(filename, stop_on_line:int=1, shift:int=1) -> (int, int):
+def trace_path(filename, stop_on_line: int = 1, shift: int = 1) -> (int, int):
     trees = 0
     steps = 0
     # Read the file
@@ -29,7 +30,7 @@ def trace_path(filename, stop_on_line:int=1, shift:int=1) -> (int, int):
             trees += 1
 
         line = next_line(data, stop_on_line)
-        while line != '':
+        while line != "":
             pos = next_pos(pos, shift, line)
             if is_tree(line, pos):
                 trees += 1

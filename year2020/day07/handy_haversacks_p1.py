@@ -85,7 +85,7 @@ def solve_the_task(filename=None, target_color=None):
     return len(outer_bags) - 1  # Except of the bag itself
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     target_color = "shiny gold"
     bags = solve_the_task(filename="input_data.txt", target_color=target_color)
     print(f"{target_color} resides in {bags} bags.")

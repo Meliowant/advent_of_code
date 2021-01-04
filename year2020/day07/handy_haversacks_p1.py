@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from collections import namedtuple
 from year2020.day07.conftest import read_bags_from_file, build_dependencies_up
 
 

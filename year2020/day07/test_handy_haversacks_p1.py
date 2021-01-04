@@ -1,6 +1,3 @@
-import pytest
-
-from year2020.conftest import format_name
 from year2020.day07.handy_haversacks_p1 import solve_the_task
 
 

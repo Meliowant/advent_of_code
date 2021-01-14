@@ -7,8 +7,8 @@ from year2020.day07.conftest import (
     update_bags,
     build_dependencies_up,
     build_dependencies_down,
-    calculate_children,
-    Bag
+    calculate_bags,
+    Bag,
 )
 
 
@@ -140,19 +140,13 @@ def test_build_dependencies_up(opts):
                 "muted yellow": {},
             },
             "target": "muted yellow",
-            "expected": [
-                [Bag(1, "muted yellow"), Bag(1, "")]
-            ]
+            "expected": [[Bag(1, "muted yellow")]],
         },
         {
             "test_name": "One bag inside, w/o descendants",
-            "source": {
-                "muted yellow": {"dotted black": 1}
-            },
+            "source": {"muted yellow": {"dotted black": 1}},
             "target": "muted yellow",
-            "expected": [
-                [Bag(1, "muted yellow"), Bag(1, "dotted black"), Bag(1, "")]
-            ]
+            "expected": [[Bag(1, "muted yellow"), Bag(1, "dotted black")]],
         },
         {
             "test_name": "Two bags inside, only second one has descendant",
@@ -161,7 +155,6 @@ def test_build_dependencies_up(opts):
                 "faded blue": {"dotted black": 1},
                 "dark olive": {},
                 "dotted black": {},
-
             },
             "target": "muted yellow",
             "expected": [
@@ -169,25 +162,64 @@ def test_build_dependencies_up(opts):
                     Bag(1, "muted yellow"),
                     Bag(1, "faded blue"),
                     Bag(1, "dotted black"),
-                    Bag(1, "")
                 ],
                 [
                     Bag(1, "muted yellow"),
                     Bag(1, "dark olive"),
-                    Bag(1, "")
-                ]
+                ],
             ],
         },
-        # {
-        #     "test_name": "Two bags inside, both have single descendant",
-        # },
-        # {
-        #     "test_name": "Two bags inside, both have few different and one "
-        #                  "same descendants",
-        # },
-
+        {
+            "test_name": "Two bags inside, both have single descendant",
+            "source": {
+                "muted yellow": {"faded blue": 2, "dark olive": 3},
+                "faded blue": {"chopped green": 3},
+                "chopped green": {},
+                "dark olive": {"light red": 5},
+                "light red": {},
+            },
+            "target": "muted yellow",
+            "expected": [
+                [
+                    Bag(1, "muted yellow"),
+                    Bag(2, "faded blue"),
+                    Bag(3, "chopped green"),
+                ],
+                [
+                    Bag(1, "muted yellow"),
+                    Bag(3, "dark olive"),
+                    Bag(5, "light red"),
+                ],
+            ],
+        },
+        {
+            "test_name": "Two bags inside, both have few different and one "
+            "same descendants",
+            "source": {
+                "muted yellow": {"faded blue": 2, "dark olive": 3},
+                "faded blue": {"chopped green": 3},
+                "chopped green": {"dark olive": 4},
+                "dark olive": {"light red": 5},
+                "light red": {},
+            },
+            "target": "muted yellow",
+            "expected": [
+                [
+                    Bag(1, "muted yellow"),
+                    Bag(2, "faded blue"),
+                    Bag(3, "chopped green"),
+                    Bag(4, "dark olive"),
+                    Bag(5, "light red"),
+                ],
+                [
+                    Bag(1, "muted yellow"),
+                    Bag(3, "dark olive"),
+                    Bag(5, "light red"),
+                ],
+            ],
+        },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_build_dependencies_down(opts):
     dependencies = build_dependencies_down(
@@ -196,19 +228,63 @@ def test_build_dependencies_down(opts):
     assert sorted(dependencies) == sorted(opts["expected"])
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize(
     "opts",
     [
         {
             "test_name": "No children",
-            "source": {
-
-            }
-        }
+            "source": [[Bag(1, "muted yellow")]],
+            "expected": 0,
+        },
+        {
+            "test_name": "One bag inside",
+            "source": [[Bag(1, "muted yellow"), Bag(1, "dark olive")]],
+            "expected": 1,
+        },
+        {
+            "test_name": "Two same bags inside",
+            "source": [[Bag(1, "muted yellow"), Bag(2, "dark olive")]],
+            "expected": 2,
+        },
+        {
+            "test_name": "Two different bags inside",
+            "source": [
+                [Bag(1, "muted yellow"), Bag(1, "dark olive")],
+                [Bag(1, "muted yellow"), Bag(1, "dark blue")],
+            ],
+            "expected": 2,
+        },
+        {
+            "test_name": "Two different bags inside, each has multiple bags",
+            "source": [
+                [
+                    Bag(1, "muted yellow"),
+                    Bag(1, "dark olive"),
+                    Bag(2, "dark red"),
+                ],
+                [
+                    Bag(1, "muted yellow"),
+                    Bag(2, "dark blue"),
+                    Bag(3, "dark green"),
+                ],
+            ],
+            "expected": 11,
+        },
+        {
+            "test_name": "Two different bags inside, first has child, other - not",
+            "source": [
+                [Bag(1, "muted yellow"), Bag(1, "dark olive")],
+                [
+                    Bag(1, "muted yellow"),
+                    Bag(1, "dark blue"),
+                    Bag(1, "dark green"),
+                ],
+            ],
+            "expected": 3,
+        },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_calculate_children(opts):
-    children_count = calculate_children(opts["source"], opts["target"])
+    children_count = calculate_bags(opts["source"])
     assert children_count == opts["expected"]

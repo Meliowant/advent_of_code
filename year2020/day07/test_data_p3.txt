@@ -1,0 +1,4 @@
+shiny gold bags contain 2 clear lavender bags.
+clear lavender bags contain 2 dull magenta bags.
+dull magenta bags contain 2 deep blue bags.
+deep blue bags contain no other bags.

@@ -1,11 +1,5 @@
 #!/usr/bin/python3
-import sys
-import os
-
-up1 = os.path.abspath("..")
-sys.path.insert(0, up1)
-
-from conftest import read_blocks_data
+from advent_of_code.year2020.conftest import read_blocks_data
 
 
 def extract_groups_unique_answers(answers_list):

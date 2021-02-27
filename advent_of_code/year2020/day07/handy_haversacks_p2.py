@@ -1,13 +1,5 @@
 #!/usr/bin/python3
-import sys
-import pathlib
-
-cur_dir = pathlib.Path(".")
-sys.path.insert(0, str(cur_dir.absolute().parent))
-sys.path.insert(0, str(cur_dir.absolute().parent.parent))
-
-
-from year2020.day07.conftest import (
+from advent_of_code.year2020.day07.conftest import (
     read_bags_from_file,
     build_dependencies_down,
     calculate_bags,
@@ -16,9 +8,9 @@ from year2020.day07.conftest import (
 
 def solve_the_task(filename=None, target_color=None):
     collected_bags, collected_rules = read_bags_from_file(filename)
-    print(collected_bags)
+    # print(collected_bags)
     bags_dependencies = build_dependencies_down(collected_bags, target_color)
-    print(bags_dependencies)
+    # print(bags_dependencies)
     total_bags = calculate_bags(bags_dependencies)
     return total_bags
 

@@ -8,9 +8,7 @@ from advent_of_code.year2020.day07.conftest import (
 
 def solve_the_task(filename=None, target_color=None):
     collected_bags, collected_rules = read_bags_from_file(filename)
-    # print(collected_bags)
     bags_dependencies = build_dependencies_down(collected_bags, target_color)
-    # print(bags_dependencies)
     total_bags = calculate_bags(bags_dependencies)
     return total_bags
 

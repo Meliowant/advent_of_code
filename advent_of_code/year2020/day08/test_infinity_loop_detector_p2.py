@@ -100,4 +100,4 @@ def test_solve_task(opts):
     assert isinstance(got_trace, list)
     assert isinstance(got_acc, int)
     assert isinstance(completed, bool)
-    assert completed == True
+    assert completed is True

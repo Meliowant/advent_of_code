@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from collections import namedtuple
 from advent_of_code.year2020.day08.common import (
     Instruction,
     read_file,
@@ -8,12 +7,18 @@ from advent_of_code.year2020.day08.common import (
 )
 
 
-def run_emulation(instructions=[]):
+def run_emulation(instructions=None):
+    """
+    Run emulation for the second part. It is similar to the emulation
+    of the first part, but I added here a variable to track if code
+    was executed till its end.
+    """
     rv = []
     accumulator_value = 0
     current_step = 0
     step_counter = 1
-    while True and 0 <= current_step < len(instructions):
+    completed = False
+    while 0 <= current_step < len(instructions):
         # import pdb;pdb.set_trace()
         instr = instructions[current_step]
         instr_idx = instruction_index(instr, rv)
@@ -21,19 +26,46 @@ def run_emulation(instructions=[]):
             rv.append([instr, [step_counter]])
         else:
             rv[instr_idx][1].append(step_counter)
-            return rv, accumulator_value  # Instructions called more than once
+            return (
+                rv,
+                accumulator_value,
+                completed,
+            )  # Instructions called more than once
 
         next_step = instr.arg if instr.cmd == "jmp" else 1
         accumulator_value += instr.arg if instr.cmd == "acc" else 0
         current_step = current_step + next_step
         step_counter += 1
-    return rv, accumulator_value
+
+    completed = True
+    return rv, accumulator_value, completed
 
 
 def solve_task(filename=""):
+    """
+    Main method to complete the task.
+    """
     instructions = read_file(filename)
-    trace, acc_value = run_emulation(instructions)
-    return trace, acc_value
+    completed = True
+    trace = []
+    acc_value = 0
+    for idx, instruction in enumerate(instructions):
+        completed = False
+        cloned_instructions = instructions.copy()
+        if instruction.cmd == "nop":
+            new_code = "jmp"
+        elif instruction.cmd == "jmp":
+            new_code = "nop"
+        else:
+            continue
+
+        cloned_instructions[idx] = Instruction(
+            cmd=new_code, pos=idx, arg=instructions[idx].arg
+        )
+        trace, acc_value, completed = run_emulation(cloned_instructions)
+        if completed:
+            break
+    return trace, acc_value, completed
 
 
 if __name__ == "__main__":

@@ -2,7 +2,8 @@ import pytest
 from advent_of_code.year2020.conftest import format_name
 from advent_of_code.year2020.day08.common import Instruction
 from advent_of_code.year2020.day08.infinity_loop_detector_p2 import (
-    solve_task, run_emulation
+    solve_task,
+    run_emulation,
 )
 
 
@@ -14,6 +15,7 @@ from advent_of_code.year2020.day08.infinity_loop_detector_p2 import (
             "code": [Instruction(cmd="nop", pos=0, arg=0)],
             "trace": [[Instruction(cmd="nop", pos=0, arg=0), [1]]],
             "acc_value": 0,
+            "completed": True,
         },
         {
             "test_name": "Two instructions. Straight-forward.",
@@ -26,6 +28,7 @@ from advent_of_code.year2020.day08.infinity_loop_detector_p2 import (
                 [Instruction(cmd="acc", pos=1, arg=1), [2]],
             ],
             "acc_value": 1,
+            "completed": True,
         },
         {
             "test_name": "Three instructions. The last makes loop on "
@@ -41,6 +44,7 @@ from advent_of_code.year2020.day08.infinity_loop_detector_p2 import (
                 [Instruction(cmd="jmp", pos=2, arg=-2), [3]],
             ],
             "acc_value": 1,
+            "completed": False,
         },
         {
             "test_name": "Advent of code, p1. Reference input",
@@ -65,14 +69,16 @@ from advent_of_code.year2020.day08.infinity_loop_detector_p2 import (
                 [Instruction(cmd="jmp", pos=7, arg=-4), [5]],
             ],
             "acc_value": 5,
+            "completed": False,
         },
     ],
     ids=format_name,
 )
 def test_run_emulation(opts):
-    got_trace, got_value = run_emulation(opts["code"])
+    got_trace, got_value, completed = run_emulation(opts["code"])
     assert got_trace == sorted(opts["trace"], key=lambda x: x[1][0])
     assert got_value == opts["acc_value"]
+    assert completed == opts["completed"]
 
 
 @pytest.mark.parametrize(
@@ -85,11 +91,13 @@ def test_run_emulation(opts):
         {
             "test_name": "Filename is absent",
             "filename": "",
-        }
+        },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_solve_task(opts):
-    got_trace, got_acc = solve_task(opts["filename"])
+    got_trace, got_acc, completed = solve_task(opts["filename"])
     assert isinstance(got_trace, list)
     assert isinstance(got_acc, int)
+    assert isinstance(completed, bool)
+    assert completed == True

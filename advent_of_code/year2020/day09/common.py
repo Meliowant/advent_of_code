@@ -7,12 +7,13 @@ Common functions for day 9 solution.
 import pathlib
 
 
-def read_file(filename: str = None) -> list:
+def read_file(filename: str = None, preamble_size: int = 25) -> list:
     """
     Read all numbers from the file. Each number resides a single line.
     Lines that don't contain number are ignored.
     """
     retval = []
+    read_items = 0
     input_data = pathlib.Path(filename)
     if not input_data.exists():
         return retval
@@ -21,30 +22,13 @@ def read_file(filename: str = None) -> list:
             try:
                 num = int(line)
                 retval.append(num)
+                read_items += 1
+                if read_items > preamble_size:
+                    list_size = preamble_size + 1
+                    retval = retval[-list_size:]  # Only useful items
+                    yield retval
             except (TypeError, ValueError):  # Skip such line
                 pass
-    return retval
-
-
-def get_previous_numbers(
-    data: list = None, preamble: int = 25, pos: int = 0
-) -> list:
-    """
-    Extract a list of numbers from the incoming data.
-    """
-    retval = []
-
-    if not data:
-        return retval
-    if preamble < 1:
-        return retval
-    if pos < 0 or pos > len(data) - 1:
-        return retval
-    if pos - preamble < 0:
-        return retval
-
-    startpos = pos - preamble
-    retval = data[startpos:pos]
     return retval
 
 

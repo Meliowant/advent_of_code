@@ -5,7 +5,6 @@ Solution for the first part for the day 9
 
 from advent_of_code.year2020.day09.common import (
     read_file,
-    get_previous_numbers,
     get_sums,
 )
 
@@ -21,16 +20,13 @@ def solve_the_task(filename="", preamble_size: int = 25) -> int:
     """
     Complete solution for the provided task
     """
-    numbers = read_file(filename)
-    init_pos = preamble_size
-    while init_pos < len(numbers):
-        preamble = get_previous_numbers(
-            data=numbers, preamble=preamble_size, pos=init_pos
-        )
+    for numbers in read_file(filename, preamble_size):
+        # input_data = list(numbers)
+        preamble = numbers[:-1]
+        ref_number = numbers[-1]
         preamble_combinations = get_sums(preamble)
-        if not is_valid(preamble_combinations, numbers[init_pos]):
-            return numbers[init_pos]
-        init_pos += 1
+        if not is_valid(preamble_combinations, ref_number):
+            return numbers[-1]
     return -1
 
 

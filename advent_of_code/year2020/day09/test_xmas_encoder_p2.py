@@ -79,5 +79,7 @@ def test_get_contiguous_set(opts):
     Test if contiguous set, whose items are equal to the target number, exists
     in the given set.
     """
-    got_set = get_contiguous_set(data=opts["set"], target_number=opts["target"])
+    got_set = get_contiguous_set(
+        data=opts["set"], target_number=opts["target"]
+    )
     assert got_set == opts["expected_set"]

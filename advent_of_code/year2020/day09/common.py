@@ -32,6 +32,26 @@ def read_file(filename: str = None, preamble_size: int = 25) -> list:
     return retval
 
 
+def read_file_until_number(filename=None, target_number=None):
+    """
+    Read the content of the file before the <number> will appear
+    """
+    input_file = pathlib.Path(filename)
+    retval = []
+    if not input_file.exists():
+        return retval
+    with input_file.open() as data:
+        for line in data:
+            try:
+                num = int(line)
+                if num == target_number:
+                    return retval
+                retval.append(num)
+            except (TypeError, ValueError):
+                pass
+    return retval
+
+
 def get_sums(data: list = None) -> list:
     """
     Calculate sums of all numbers from th incoming data:w

@@ -6,6 +6,7 @@ import pytest
 from advent_of_code.year2020.conftest import format_name
 from advent_of_code.year2020.day09.common import (
     read_file,
+    read_file_until_number,
     get_sums,
 )
 
@@ -51,12 +52,40 @@ def test_read_file(opts):
     Test reading file's content
     """
     got_data_as_list = []
-    for _ in read_file(filename=opts["filename"],
-                       preamble_size=opts["preamble_size"]
-                       ):
+    for _ in read_file(
+        filename=opts["filename"], preamble_size=opts["preamble_size"]
+    ):
         got_data_as_list.extend(_)
 
     assert got_data_as_list == opts["exp_data"]
+
+
+@pytest.mark.parametrize(
+    "opts",
+    [
+        {
+            "test_name": "File doesn't contain requested number",
+            "filename": "test_expected_input.txt",
+            "target_number": 4,
+            "exp": [1, 2, 3],
+        },
+        {
+            "test_name": "File contains requested number",
+            "filename": "test_expected_input.txt",
+            "target_number": 3,
+            "exp": [1, 2],
+        },
+    ],
+    ids=format_name,
+)
+def test_read_file_until_number(opts):
+    """
+    Test for read_file_until_number.
+    """
+    got_data = read_file_until_number(
+        filename=opts["filename"], target_number=opts["target_number"]
+    )
+    assert got_data == opts["exp"]
 
 
 @pytest.mark.parametrize(

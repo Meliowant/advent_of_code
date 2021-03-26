@@ -122,7 +122,7 @@ def test_get_devices_joltage(opts):
             "init_joltage": 1,
             "expected": (2, [3, 5, 6, 9, 10]),
         },
-     ],
+    ],
     ids=format_name,
 )
 def test_get_compatible_adapter(opts):
@@ -163,7 +163,7 @@ def test_get_compatible_adapter(opts):
             "expected": -1,
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_get_joltage_diff(opts):
     """
@@ -197,7 +197,7 @@ def test_get_joltage_diff(opts):
             "expected_dict": {"1": 1, "3": 1},
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_joltage_stats(opts):
     """

@@ -5,10 +5,11 @@ Set of common functions for this day's solution.
 import pathlib
 
 
-class JoltageStats():
+class JoltageStats:
     """
     Single source for collecting joltage differences
     """
+
     def __init__(self):
         self.joltage_diffs = {}
 

@@ -5,9 +5,36 @@ Set of common functions for this day's solution.
 import pathlib
 
 
-def read_data(file_name: str = ""):
+class JoltageStats():
+    """
+    Single source for collecting joltage differences
+    """
+    def __init__(self):
+        self.joltage_diffs = {}
+
+    def collect(self, in_joltage: int) -> None:
+        """
+        Summarize joltages statistics
+        """
+        diff = str(in_joltage)  # This is key
+        if diff not in self.joltage_diffs.keys():
+            self.joltage_diffs[diff] = 1
+        else:
+            self.joltage_diffs[diff] += 1
+
+    def report(self):
+        """
+        Return joltage difference sumamry
+        """
+        return self.joltage_diffs
+
+
+def read_data(file_name: str = "") -> list:
     """
     Read the content of the given file. Return it as a list.
+
+    Keyword arguments:
+        file_name -- name on a file with the source.:w
     """
     output = []
     datafile = pathlib.Path(file_name)
@@ -25,14 +52,20 @@ def read_data(file_name: str = ""):
     return output
 
 
-def get_devices_joltage(adapters: list = None):
+def get_devices_joltage(adapters: list = None) -> int:
     """
     Get device's joltage
+
+    Keyword arguments:
+        adapters - list of integers, that represent adapters' output joltage
+
+    Returns:
+        Target device's input joltage.
     """
     return max(adapters) + 3 if adapters else 3
 
 
-def get_tried_out_adapters(
+def get_compatible_adapter(
     adapters: list = None, init_joltage: int = None
 ) -> (list, list):
     """
@@ -47,34 +80,40 @@ def get_tried_out_adapters(
             The first list is a list of supported adapters;
             The second list is a list of remained adapters.
     """
-    used_adapters = []
-    remained_adapters = []
-    for adapter in adapters:
+    comp_adapters = []
+    incomp_adapters = []
+    min_joltage = init_joltage + 1
+    max_joltage = init_joltage + 3
+    for adapter in sorted(adapters):
         if adapter <= init_joltage:
             continue
-        if adapter < init_joltage + 3:
-            target_adapters = used_adapters
+        if min_joltage <= adapter <= max_joltage:
+            target_adapters = comp_adapters
         else:
-            target_adapters = remained_adapters
+            target_adapters = incomp_adapters
         target_adapters.append(adapter)
-    return (used_adapters, remained_adapters)
+    comp_adapters.sort()
+    compatible_adapter = comp_adapters.pop(0) if comp_adapters else -1
+
+    remained_adapters = comp_adapters + incomp_adapters
+    return (compatible_adapter, remained_adapters)
 
 
-def pick_adapter(
-    adapters: list = None, input_joltage: int = None
-) -> (int, int):
+def get_joltage_diff(in_joltage: int = None, out_joltage: int = None) -> int:
     """
-    Pick the most suitable adapter.
+    Calculate difference between joltage values
 
     Keyword arguments:
-        adapters -- list of adapters that can operate with the input joltage
-        input_joltage -- joltage value for the adapter
+        in_joltage - input joltage value
+        out_joltage - output joltage value
 
     Returns:
-        A tuple of int values:
-            - Output joltage value for the picked adapter
-            - Difference between input and output joltage value
+        On success - difference between joltage values;
+        On failure - -1.
     """
-    picked_adapter = min(adapters)
-    diff = picked_adapter - input_joltage
-    return (picked_adapter, diff)
+    try:
+        in_joltage = int(in_joltage)
+        out_joltage = int(out_joltage)
+    except (TypeError, ValueError):
+        return -1
+    return out_joltage - in_joltage

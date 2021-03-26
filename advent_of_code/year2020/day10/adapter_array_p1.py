@@ -44,7 +44,7 @@ def solve_the_task(file_name: str = None) -> (list, dict):
     Main function to pick a list of existing adapters from the file, and
     return a list of used adapters, and joltage differences between them.
     """
-    adapters, stats = get_adapters_and_stats(file_name)
+    _, stats = get_adapters_and_stats(file_name)
     one_jolt_diffs = stats.get("1", 0)
     three_jol_diffs = stats.get("3", 0)
     return one_jolt_diffs * three_jol_diffs

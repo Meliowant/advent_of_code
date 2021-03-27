@@ -13,5 +13,5 @@ setup(
     url="https://github.com/Meliowant/advent_of_code",
     packages=['advent_of_code'],
     long_description=read('README.md'),
-    install_requires=['pytest']
+    install_requires=['pytest', 'black', 'flake8', 'pylint', 'coverage']
 )

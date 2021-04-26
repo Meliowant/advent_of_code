@@ -170,7 +170,7 @@ def test_get_compatible_adapter(opts):
             "supported_list": [2, 3, 4],
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_get_compatible_adapters(opts):
     """

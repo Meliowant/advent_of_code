@@ -1,6 +1,6 @@
 """
 Set of common calls to solve tasks for day 10
-"""
+ """
 
 import pytest
 
@@ -9,6 +9,7 @@ from advent_of_code.year2020.day10.common import (
     read_data,
     get_devices_joltage,
     get_compatible_adapter,
+    get_compatible_adapters,
     get_joltage_diff,
     JoltageStats,
 )
@@ -133,6 +134,52 @@ def test_get_compatible_adapter(opts):
         adapters=opts["adapters"], init_joltage=opts["init_joltage"]
     )
     assert got_adapters == opts["expected"]
+
+
+@pytest.mark.parametrize(
+    "opts",
+    [
+        {
+            "test_name": "Ascending list",
+            "adapters": [2, 3, 4, 5, 6, 7],
+            "joltage": 1,
+            "supported_list": [2, 3, 4],
+        },
+        {
+            "test_name": "Descending list",
+            "adapters": [7, 6, 5, 4, 3, 2],
+            "joltage": 1,
+            "supported_list": [2, 3, 4],
+        },
+        {
+            "test_name": "List with ignored values",
+            "adapters": [1, 2, 3, 4, 5, 6, 7],
+            "joltage": 1,
+            "supported_list": [2, 3, 4],
+        },
+        {
+            "test_name": "Empty list",
+            "adapters": [],
+            "joltage": 1,
+            "supported_list": [],
+        },
+        {
+            "test_name": "Ascending list",
+            "adapters": [2, 3, 4, 5, 6, 7],
+            "joltage": 1,
+            "supported_list": [2, 3, 4],
+        },
+    ],
+    ids=format_name
+)
+def test_get_compatible_adapters(opts):
+    """
+    Check get_compatible_adapters.
+    """
+    supported = get_compatible_adapters(
+        opts["adapters"], input_joltage=opts["joltage"]
+    )
+    assert supported == opts["supported_list"]
 
 
 @pytest.mark.parametrize(

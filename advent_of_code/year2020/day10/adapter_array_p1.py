@@ -24,7 +24,6 @@ def get_adapters_and_stats(file_name: str) -> (list, dict):
     exp_out_joltage = get_devices_joltage(adapters)
 
     while out_joltage < exp_out_joltage and len(adapters) > 0:
-        # import pdb;pdb.set_trace()
         adapter, adapters = get_compatible_adapter(adapters, out_joltage)
 
         if adapter == -1:

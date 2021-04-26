@@ -68,7 +68,7 @@ def get_devices_joltage(adapters: list = None) -> int:
 
 def get_compatible_adapter(
     adapters: list = None, init_joltage: int = None
-) -> (list, list):
+) -> (int, list):
     """
     Extract all compatible adapters from the provided list.
 
@@ -98,6 +98,26 @@ def get_compatible_adapter(
 
     remained_adapters = comp_adapters + incomp_adapters
     return (compatible_adapter, remained_adapters)
+
+
+def get_compatible_adapters(
+    adapters: list = None, input_joltage: int = None
+) -> list:
+    """
+    Get a list of adapters that are compatible with the input joltage.
+
+    Known arguments:
+        adapters - a list of all unchecked adapters.
+        input_joltage -  joltage that can be used with each adapter.
+
+    Returns:
+        List of supported adapters
+    """
+    supported = []
+    for adapter in sorted(adapters):
+        if input_joltage + 1 <= adapter <= input_joltage + 3:
+            supported.append(adapter)
+    return supported
 
 
 def get_joltage_diff(in_joltage: int = None, out_joltage: int = None) -> int:

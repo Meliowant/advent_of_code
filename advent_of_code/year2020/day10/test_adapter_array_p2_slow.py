@@ -18,22 +18,22 @@ from advent_of_code.year2020.day10.adapter_array_p2_slow import (
             "test_name": "One combination, with two elements",
             "adapters": [0],
             "input_joltage": 1,
-            "expected_combinations": [[0, 1]]
+            "expected_combinations": [[0, 1]],
         },
         {
             "test_name": "Two combinations",
             "adapters": [0, 1],
             "input_joltage": 2,
-            "expected_combinations": [[0, 1, 2], [0, 2]]
+            "expected_combinations": [[0, 1, 2], [0, 2]],
         },
         {
             "test_name": "No combinations",
             "adapters": [0, 1],
             "input_joltage": 5,
-            "expected_combinations": []
+            "expected_combinations": [],
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_list_all_combinations(opts):
     """
@@ -41,8 +41,7 @@ def test_list_all_combinations(opts):
     """
     got_combinations = sorted(
         list_all_combinations(
-            adapters=opts["adapters"],
-            target_joltage=opts["input_joltage"]
+            adapters=opts["adapters"], target_joltage=opts["input_joltage"]
         )
     )
     assert got_combinations == sorted(opts["expected_combinations"])
@@ -63,7 +62,7 @@ def test_list_all_combinations(opts):
             "expected_combinations": 19208,
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_solve_the_task(opts):
     """

@@ -368,8 +368,7 @@ def test_possible_adapters(opts):
     [
         {
             "test_name": (
-                    "Single item between start and stop, "
-                    "target not in adapters"
+                "Single item between start and stop, target not in adapters"
             ),
             "adapters": [1],
             "target": 2,
@@ -381,7 +380,7 @@ def test_possible_adapters(opts):
         },
         {
             "test_name": (
-                    "Single item between start and stop, target in adapters"
+                "Single item between start and stop, target in adapters"
             ),
             "adapters": [1, 2],
             "target": 2,
@@ -393,7 +392,7 @@ def test_possible_adapters(opts):
         },
         {
             "test_name": (
-                    "Two items between start and stop, target not in adapters"
+                "Two items between start and stop, target not in adapters"
             ),
             "adapters": [1, 2],
             "target": 3,
@@ -406,7 +405,7 @@ def test_possible_adapters(opts):
         },
         {
             "test_name": (
-                    "Three item between start and stop, target not in adapters"
+                "Three item between start and stop, target not in adapters"
             ),
             "adapters": [1, 2, 3],
             "target": 4,
@@ -551,7 +550,7 @@ def test_find_adapter_in_longest_path(opts):
         },
         {
             "test_name": (
-                    "Connected via two intermediate adapters (longer chain)"
+                "Connected via two intermediate adapters (longer chain)"
             ),
             "adapters": [3, 6, 7, 8, 10],
             "expected_paths_amount": 3,
@@ -582,8 +581,8 @@ def test_find_adapter_in_longest_path(opts):
         },
         {
             "test_name": (
-                    "Connected via multiple intermediate adapters "
-                    "(single chain)"),
+                "Connected via multiple intermediate adapters (single chain)"
+            ),
             "adapters": [3, 6, 7, 10, 12],
             "expected_paths_amount": 1,
             "temp": [

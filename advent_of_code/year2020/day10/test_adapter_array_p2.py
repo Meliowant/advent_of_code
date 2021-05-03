@@ -1,3 +1,7 @@
+"""
+The final test suite for the second task on day 10
+"""
+from collections import namedtuple
 import pytest
 
 from advent_of_code.year2020.conftest import format_name
@@ -5,7 +9,6 @@ from advent_of_code.year2020.day10.adapter_array_p2 import (
     JoltageAdapter,
     solve_the_task,
 )
-from collections import namedtuple
 
 ExpAdapter = namedtuple(
     "ExpAdapter",
@@ -55,19 +58,22 @@ ExpAdapter = namedtuple(
     ids=format_name,
 )
 def test_adapter_creation(opts):
-    js = JoltageAdapter(value=opts["value"], previous=opts["prev"])
+    """
+    Test constructor
+    """
+    jad = JoltageAdapter(value=opts["value"], previous=opts["prev"])
     for adapter in opts.get("next_adapters", []):
-        JoltageAdapter(value=adapter, previous=js)
+        JoltageAdapter(value=adapter, previous=jad)
     for attr in ["value", "previous"]:
-        got = js.__getattribute__(attr)
+        got = jad.__getattribute__(attr)
         expected = opts["exp"].__getattribute__(attr)
         assert got == expected
 
     if not opts.get("next_adapters"):
         return
 
-    for next_adapter in js.next_adapters:
-        next_adapter in opts["exp"].next_adapters
+    for next_adapter in jad.next_adapters:
+        assert next_adapter in opts["exp"].next_adapters
 
 
 @pytest.mark.parametrize(
@@ -297,13 +303,13 @@ def test_repr(opts):
     Test __repr__ for JoltageAdapter
     :return:
     """
-    ad = opts["ad"]
+    jad = opts["jad"]
     if opts["next_ads"]:
-        ad.longest_path = (opts["next_ads"], opts["next_ads"][-1])
+        jad.longest_path = (opts["next_ads"], opts["next_ads"][-1])
     if opts["check_second"]:
-        ad = ad.next_nearest
-    repr = ad.__repr__()
-    assert repr == opts["repr"]
+        jad = jad.next_nearest
+    repr_ = jad.__repr__()
+    assert repr_ == opts["repr"]
 
 
 @pytest.mark.parametrize(

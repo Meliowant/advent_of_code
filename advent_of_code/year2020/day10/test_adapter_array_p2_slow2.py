@@ -12,7 +12,8 @@ import pytest
 
 from advent_of_code.year2020.conftest import format_name
 from advent_of_code.year2020.day10.adapter_array_p2_slow2 import (
-    JoltageAdapter, solve_the_task
+    JoltageAdapter,
+    solve_the_task,
 )
 
 
@@ -234,7 +235,7 @@ def test_ne(opts):
                 "ad2": "42,45",
                 "is_less_than": True,
             },
-            marks=pytest.mark.xfail(raises=ValueError)
+            marks=pytest.mark.xfail(raises=ValueError),
         ),
         pytest.param(
             {
@@ -305,13 +306,13 @@ def test_repr(opts):
     Test __repr__ for JoltageAdapter
     :return:
     """
-    ad = opts["ad"]
+    adapter = opts["adapter"]
     if opts["next_ads"]:
-        ad.longest_path = (opts["next_ads"], opts["next_ads"][-1])
+        adapter.longest_path = (opts["next_ads"], opts["next_ads"][-1])
     if opts["check_second"]:
-        ad = ad.next_nearest
-    repr = ad.__repr__()
-    assert repr == opts["repr"]
+        adapter = adapter.next_nearest
+    repr__ = adapter.__repr__()
+    assert repr__ == opts["repr"]
 
 
 @pytest.mark.parametrize(
@@ -638,7 +639,7 @@ def test_find_adapter_in_longest_path(opts):
                         value=12, previous=JoltageAdapter(value=10)
                     ),
                 ],
-             ],
+            ],
         },
     ],
     ids=format_name,

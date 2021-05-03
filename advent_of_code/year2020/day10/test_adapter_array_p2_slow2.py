@@ -19,7 +19,7 @@ from advent_of_code.year2020.day10.adapter_array_p2_slow2 import (
 
 ExpAdapter = namedtuple(
     "ExpAdapter",
-    ["value", "previous", "processed", "successful", "next_adapters"],
+    ["value", "previous", "next_adapters"],
 )
 
 
@@ -33,8 +33,6 @@ ExpAdapter = namedtuple(
             "exp": ExpAdapter(
                 value=0,
                 previous=None,
-                processed=False,
-                successful=False,
                 next_adapters=[],
             ),
         },
@@ -45,8 +43,6 @@ ExpAdapter = namedtuple(
             "exp": ExpAdapter(
                 value=1,
                 previous=JoltageAdapter(value=0),
-                processed=False,
-                successful=False,
                 next_adapters=[],
             ),
         },
@@ -58,8 +54,6 @@ ExpAdapter = namedtuple(
             "exp": ExpAdapter(
                 value=1,
                 previous=JoltageAdapter(value=0),
-                processed=False,
-                successful=False,
                 next_adapters=[
                     JoltageAdapter(value=2, previous=JoltageAdapter(value=1)),
                     JoltageAdapter(value=3, previous=JoltageAdapter(value=1)),
@@ -77,7 +71,7 @@ def test_adapter_creation(opts):
     js_inst = JoltageAdapter(value=opts["value"], previous=opts["prev"])
     for adapter in opts.get("next_adapters", []):
         JoltageAdapter(value=adapter, previous=js_inst)
-    for attr in ["value", "previous", "processed", "successful"]:
+    for attr in ["value", "previous" ]:
         got = js_inst.__getattribute__(attr)
         expected = opts["exp"].__getattribute__(attr)
         assert got == expected
@@ -306,7 +300,7 @@ def test_repr(opts):
     Test __repr__ for JoltageAdapter
     :return:
     """
-    adapter = opts["adapter"]
+    adapter = opts["ad"]
     if opts["next_ads"]:
         adapter.longest_path = (opts["next_ads"], opts["next_ads"][-1])
     if opts["check_second"]:

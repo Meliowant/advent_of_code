@@ -58,11 +58,11 @@ class JoltageAdapter:
         try:
             other_value = int(other)
             return self.value < other_value
-        except TypeError as e:
+        except TypeError as exc:
             raise TypeError(
                 "Second argument is expected to be an instance of "
                 f"JoltageAdapter or int. Provided type is {type(other)}"
-            ) from e
+            ) from exc
 
     def __repr__(self):
 

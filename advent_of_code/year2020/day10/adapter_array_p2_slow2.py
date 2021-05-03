@@ -16,8 +16,6 @@ class JoltageAdapter:
         """
         self.value = value
         self.previous = previous
-        self.processed = False
-        self.successful = False
         self.next_adapters = []
         self.next_nearest = None
         self.adapters_counter = 1
@@ -121,10 +119,10 @@ class JoltageAdapter:
         Getter for longest path of adapters
         """
         path = []
-        ad = self
-        while ad:
-            path.append(ad)
-            ad = ad.next_nearest
+        jad = self
+        while jad:
+            path.append(jad)
+            jad = jad.next_nearest
 
         return path
 
@@ -169,10 +167,8 @@ class JoltageAdapter:
             return [self]
         for adapter in self.next_adapters:
             curr = [self]
-            # TODO Doesn't work for 0->1->2->3 and 0->1->3 (check why)
             curr.extend(adapter.get_adapters_tree(depth + 1))
             final.append(curr)
-            # if depth > 0:  # TODO make nice list of lists
         return final
 
     def format_adapters_tree(self):
@@ -183,16 +179,20 @@ class JoltageAdapter:
         tree = self.get_adapters_tree()
         final_list = []
         while changed:
-            # import pdb;pdb.set_trace()
             changed = False
             while tree:
                 second_lvl_item = tree.pop(0)
-                # for second_lvl_item in tree:
-                # tree.remove(second_lvl_item)
+                has_list_items = False
                 total_items = sum(
                     [1 for itm in second_lvl_item if isinstance(itm, list)]
                 )
-                if not any([isinstance(x, list) for x in second_lvl_item]):
+
+                for _ in second_lvl_item:
+                    if isinstance(_, list):
+                        has_list_items = True
+                        break
+
+                if not has_list_items:
                     final_list.append(second_lvl_item)
                     continue
 

@@ -126,13 +126,13 @@ def test_eq(opts):
         {
             "test_name": "Adapters are equal",
             "ad1": JoltageAdapter(value=1, previous=[]),
-            "ad2": JoltageAdapter(value=1, previous=[JoltageAdapter(value=0)]),
+            "ad2": JoltageAdapter(value=1, previous=JoltageAdapter(value=0)),
             "are_different": False,
         },
         {
             "test_name": "Adapters are different",
             "ad1": JoltageAdapter(value=1, previous=[]),
-            "ad2": JoltageAdapter(value=2, previous=[JoltageAdapter(value=0)]),
+            "ad2": JoltageAdapter(value=2, previous=JoltageAdapter(value=0)),
             "are_different": True,
         },
         {
@@ -176,13 +176,13 @@ def test_ne(opts):
         {
             "test_name": "Adapters are equal",
             "ad1": JoltageAdapter(value=1, previous=[]),
-            "ad2": JoltageAdapter(value=1, previous=[JoltageAdapter(value=0)]),
+            "ad2": JoltageAdapter(value=1, previous=JoltageAdapter(value=0)),
             "is_less_than": False,
         },
         {
             "test_name": "Adapter is less than next one",
             "ad1": JoltageAdapter(value=1, previous=[]),
-            "ad2": JoltageAdapter(value=2, previous=[JoltageAdapter(value=0)]),
+            "ad2": JoltageAdapter(value=2, previous=JoltageAdapter(value=0)),
             "is_less_than": True,
         },
         {

@@ -8,16 +8,6 @@ from advent_of_code.year2020.day10.common import (
 )
 
 
-def calculate_combinations(
-    adapters: list = [], init: int = None, final: int = None
-):
-    """
-    Calculate combinations. This is my second approach, that is not straight-
-    forward. Here I calculate next
-    """
-    pass
-
-
 def list_all_combinations(
     adapters: list = None, target_joltage: int = None
 ) -> list:
@@ -53,7 +43,7 @@ def list_all_combinations(
             check_combinations.append(new_combination)
 
         remained = len(check_combinations)
-        if remained % 1000000 == 0:
+        if remained % 1000 == 0 and check_combinations:
             max_len = max([len(x) for x in check_combinations])
             cur_max = (
                 max([len(x) for x in combinations]) if combinations else 0
@@ -89,10 +79,6 @@ def solve_the_task(file_name: str = None) -> int:
     )
     total_combinations = len(combinations)
     return total_combinations
-
-
-def solve_the_task_short(adapters: list = [], target_joltage: int = None):
-    pass
 
 
 if __name__ == "__main__":

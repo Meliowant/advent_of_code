@@ -10,7 +10,6 @@ from advent_of_code.year2020.day10.adapter_array_p2_slow import (
 )
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize(
     "opts",
     [
@@ -47,7 +46,6 @@ def test_list_all_combinations(opts):
     assert got_combinations == sorted(opts["expected_combinations"])
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize(
     "opts",
     [

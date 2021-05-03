@@ -25,9 +25,6 @@ def get_adapters_and_stats(file_name: str) -> (list, dict):
 
     while out_joltage < exp_out_joltage and len(adapters) > 0:
         adapter, adapters = get_compatible_adapter(adapters, out_joltage)
-
-        if adapter == -1:
-            break
         used_adapters.append(adapter)
         joltage_diff = get_joltage_diff(out_joltage, adapter)
         out_joltage = adapter

@@ -16,13 +16,13 @@ class JoltageAdapter:
         """
         self.value = value
         self.previous = previous
-        if previous:
-            previous.next_adapters.append(self)
         self.processed = False
         self.successful = False
         self.next_adapters = []
         self.next_nearest = None
         self.adapters_counter = 1
+        if previous:
+            previous.next_adapters.append(self)
 
     def __eq__(self, other):
         """
@@ -49,8 +49,16 @@ class JoltageAdapter:
         """
         if isinstance(other, JoltageAdapter):
             return self.value < other.value
-        else:
+        if isinstance(other, int):
             return self.value < other
+
+        try:
+            other = int(other)
+            return self.value < other
+        except TypeError as exc:
+            raise TypeError("JoltageAdapter or int is expected") from exc
+        except ValueError as exc:
+            raise ValueError("JoltageAdapter or int is expected") from exc
 
     def __repr__(self):
         return f"{self.value}"
@@ -205,10 +213,7 @@ class JoltageAdapter:
 
                 remained_items = second_lvl_item[list_start:]
                 for idx, value in enumerate(remained_items):
-                    if isinstance(value, list):
-                        arrays[idx].extend(value)
-                    else:
-                        arrays[idx].append(value)
+                    arrays[idx].extend(value)
                 for array in arrays:
                     tree.append(array)
                 changed = True

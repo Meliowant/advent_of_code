@@ -303,7 +303,7 @@ def test_repr(opts):
     Test __repr__ for JoltageAdapter
     :return:
     """
-    jad = opts["jad"]
+    jad = opts["ad"]
     if opts["next_ads"]:
         jad.longest_path = (opts["next_ads"], opts["next_ads"][-1])
     if opts["check_second"]:

@@ -71,7 +71,7 @@ def test_adapter_creation(opts):
     js_inst = JoltageAdapter(value=opts["value"], previous=opts["prev"])
     for adapter in opts.get("next_adapters", []):
         JoltageAdapter(value=adapter, previous=js_inst)
-    for attr in ["value", "previous" ]:
+    for attr in ["value", "previous"]:
         got = js_inst.__getattribute__(attr)
         expected = opts["exp"].__getattribute__(attr)
         assert got == expected

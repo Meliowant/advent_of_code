@@ -171,6 +171,16 @@ class JoltageAdapter:
             final.append(curr)
         return final
 
+    @classmethod
+    def has_list_items(cls, item):
+        """
+        Check if there is any list in the iterable item
+        """
+        for _ in item:
+            if isinstance(_, list):
+                return True
+        return False
+
     def format_adapters_tree(self):
         """
         Transform a list of inherited lists into a narrow list
@@ -182,17 +192,11 @@ class JoltageAdapter:
             changed = False
             while tree:
                 second_lvl_item = tree.pop(0)
-                has_list_items = False
                 total_items = sum(
                     [1 for itm in second_lvl_item if isinstance(itm, list)]
                 )
 
-                for _ in second_lvl_item:
-                    if isinstance(_, list):
-                        has_list_items = True
-                        break
-
-                if not has_list_items:
+                if not self.has_list_items(second_lvl_item):
                     final_list.append(second_lvl_item)
                     continue
 

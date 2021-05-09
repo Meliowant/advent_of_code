@@ -4,12 +4,15 @@ Test suite for common functions that will be used in the solution for this day
 """
 
 import pytest
-from advent_of_code.year2020.conftest import (
-    format_name
-)
+from advent_of_code.year2020.conftest import format_name
 from advent_of_code.year2020.day11.common import (
-    read_seats, is_seat, toggle_seat, get_occupied_seats, map_to_str,
-    verify_seat, seat_must_be_toggled
+    read_seats,
+    is_seat,
+    toggle_seat,
+    get_occupied_seats,
+    map_to_str,
+    verify_seat,
+    seat_must_be_toggled,
 )
 
 
@@ -19,17 +22,17 @@ from advent_of_code.year2020.day11.common import (
         {
             "test_name": "Single floor seat",
             "input": "one_floor.txt",
-            "expected_seats": [["."]]
+            "expected_seats": [["."]],
         },
         {
             "test_name": "Single free seat",
             "input": "one_empty_seat.txt",
-            "expected_seats": [["L"]]
+            "expected_seats": [["L"]],
         },
         {
             "test_name": "Single occupied seat",
             "input": "one_occupied_seat.txt",
-            "expected_seats": [["#"]]
+            "expected_seats": [["#"]],
         },
         {
             "test_name": "AOC's first example",
@@ -44,12 +47,11 @@ from advent_of_code.year2020.day11.common import (
                 [".", ".", "L", ".", "L", ".", ".", ".", ".", "."],
                 ["L", "L", "L", "L", "L", "L", "L", "L", "L", "L"],
                 ["L", ".", "L", "L", "L", "L", "L", "L", ".", "L"],
-                ["L", ".", "L", "L", "L", "L", "L", ".", "L", "L"]
-            ]
+                ["L", ".", "L", "L", "L", "L", "L", ".", "L", "L"],
+            ],
         },
-
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_read_seats(opts):
     """
@@ -88,7 +90,7 @@ def test_read_seats(opts):
             "expected": False,
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_is_seat(opts):
     """
@@ -101,26 +103,14 @@ def test_is_seat(opts):
 @pytest.mark.parametrize(
     "opts",
     [
-        {
-            "test_name": "Seat is free",
-            "value": "L",
-            "expected": "#"
-        },
-        {
-            "test_name": "Seat is occupied",
-            "value": "#",
-            "expected": "L"
-        },
+        {"test_name": "Seat is free", "value": "L", "expected": "#"},
+        {"test_name": "Seat is occupied", "value": "#", "expected": "L"},
         pytest.param(
-            {
-                "test_name": "Seat is not seat",
-                "value": ".",
-                "expected": ""
-            },
-            marks=pytest.mark.xfail(raises=ValueError)
-        )
+            {"test_name": "Seat is not seat", "value": ".", "expected": ""},
+            marks=pytest.mark.xfail(raises=ValueError),
+        ),
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_toggle_seat(opts):
     """
@@ -200,7 +190,7 @@ def test_toggle_seat(opts):
             "expected_seats": 0,
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_get_occupied_seats(opts):
     """
@@ -230,7 +220,7 @@ def test_get_occupied_seats(opts):
             "expected": "LL#L",
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_map_to_str(opts):
     """
@@ -267,8 +257,8 @@ def test_map_to_str(opts):
             "occupied_seats": 4,
             "exp_toggled": True,
         },
-     ],
-    ids=format_name
+    ],
+    ids=format_name,
 )
 def test_seat_must_be_toggled(opts):
     """
@@ -306,7 +296,7 @@ def test_seat_must_be_toggled(opts):
             "expected_seat": "#",
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_verify_seat(opts):
     """

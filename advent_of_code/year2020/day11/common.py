@@ -87,9 +87,14 @@ def get_occupied_seats(seats_map: list = None, position: tuple = None) -> int:
     str_map = map_to_str(seats_map)
 
     for s_row, s_col in [
-        (-1, -1), (-1, 0), (-1, 1),
-        (0, -1), (0, 1),
-        (1, -1), (1, 0), (1, 1)
+        (-1, -1),
+        (-1, 0),
+        (-1, 1),
+        (0, -1),
+        (0, 1),
+        (1, -1),
+        (1, 0),
+        (1, 1),
     ]:
         new_row = row + s_row
         new_col = col + s_col

@@ -14,10 +14,10 @@ from advent_of_code.year2020.day11.seating_system_p1 import solve_the_task
         {
             "test_name": "AOC example",
             "filename": "aoc_example_1.txt",
-            "exp_seats": 37
+            "exp_seats": 37,
         }
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_solve_the_task(opts):
     """

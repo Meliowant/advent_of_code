@@ -4,7 +4,9 @@ Solution for the first part of the task on day 11
 """
 
 from advent_of_code.year2020.day11.common import (
-    read_seats, verify_seat, map_to_str
+    read_seats,
+    verify_seat,
+    map_to_str,
 )
 
 
@@ -25,8 +27,10 @@ def solve_the_task(filename: str = None):
             for col_idx, _ in enumerate(row):
                 updated_seat = verify_seat(seats_map, (row_idx, col_idx))
                 new_seats_map[row_idx].append(updated_seat)
-                if not has_changed and \
-                        updated_seat != seats_map[row_idx][col_idx]:
+                if (
+                    not has_changed
+                    and updated_seat != seats_map[row_idx][col_idx]
+                ):
                     has_changed = True
         seats_map = new_seats_map
 

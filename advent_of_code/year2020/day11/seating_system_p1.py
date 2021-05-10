@@ -18,8 +18,8 @@ def solve_the_task(filename: str = None):
     has_changed = True
     loops = 0
     while has_changed:
-        print(f"Staring loop '{loops}'")
         loops += 1
+        print(f"Working on '{loops}' map.")
         has_changed = False
         new_seats_map = []
         for row_idx, row in enumerate(seats_map):

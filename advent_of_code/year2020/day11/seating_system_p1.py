@@ -24,8 +24,12 @@ def solve_the_task(filename: str = None):
         new_seats_map = []
         for row_idx, row in enumerate(seats_map):
             new_seats_map.append([])
-            for col_idx, _ in enumerate(row):
-                updated_seat = verify_seat(seats_map, (row_idx, col_idx))
+            for col_idx, seat in enumerate(row):
+                updated_seat = (
+                    seat
+                    if seat == "."
+                    else verify_seat(seats_map, (row_idx, col_idx))
+                )
                 new_seats_map[row_idx].append(updated_seat)
                 if (
                     not has_changed

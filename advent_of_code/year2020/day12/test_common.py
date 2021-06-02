@@ -7,7 +7,9 @@ Test suite for checking common fuctionality for solutions on day 12.
 import pytest
 from advent_of_code.year2020.conftest import format_name
 from advent_of_code.year2020.day12.common import (
-    NavigationInstruction, read_instructions, Ferry
+    NavigationInstruction,
+    read_instructions,
+    Ferry,
 )
 
 
@@ -19,17 +21,17 @@ from advent_of_code.year2020.day12.common import (
             "filename": "single_instruction.txt",
             "expected_instructions": [
                 NavigationInstruction(action="N", value=10)
-            ]
+            ],
         },
         {
             "test_name": "An empty file",
             "filename": "empty_file.txt",
-            "expected_instructions": []
+            "expected_instructions": [],
         },
         {
             "test_name": "A file with no instructions",
             "filename": "no_instructions.txt",
-            "expected_instructions": []
+            "expected_instructions": [],
         },
         {
             "test_name": "A file with mix of proper and incorrect instruction",
@@ -37,10 +39,10 @@ from advent_of_code.year2020.day12.common import (
             "expected_instructions": [
                 NavigationInstruction(action="N", value=10),
                 NavigationInstruction(action="E", value=10),
-            ]
+            ],
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_read_instructions(opts):
     """
@@ -56,17 +58,17 @@ def test_read_instructions(opts):
         {
             "test_name": "Ferry creates with default arguments",
             "facing": None,
-            "expected": "<Ferry(x_pos='0', y_pos='0', facing='E', angle='0')>"
+            "expected": "<Ferry(x_pos='0', y_pos='0', facing='E', angle='0')>",
         },
         {
             "test_name": "Ferry creates with custom argument",
             "facing": "blah",
             "expected": (
                 "<Ferry(x_pos='0', y_pos='0', facing='blah', angle='0')>"
-            )
+            ),
         },
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_ferry_creation(opts):
     """
@@ -82,46 +84,45 @@ def test_ferry_creation(opts):
         {
             "test_name": "Ferry doesn't rotate",
             "angle": NavigationInstruction(action="R", value=0),
-            "expected_facing": "E"
+            "expected_facing": "E",
         },
         {
             "test_name": "Ferry rotates 90 degrees",
             "angle": NavigationInstruction(action="R", value=90),
-            "expected_facing": "S"
+            "expected_facing": "S",
         },
         {
             "test_name": "Ferry rotates 90 degrees",
             "angle": NavigationInstruction(action="L", value=90),
-            "expected_facing": "N"
+            "expected_facing": "N",
         },
         {
             "test_name": "Ferry rotates 90 degrees ccw",
             "angle": NavigationInstruction(action="R", value=-90),
-            "expected_facing": "N"
+            "expected_facing": "N",
         },
         {
             "test_name": "Ferry rotates 180 degrees",
             "angle": NavigationInstruction(action="R", value=180),
-            "expected_facing": "W"
+            "expected_facing": "W",
         },
         {
             "test_name": "Ferry rotates 180 degrees",
             "angle": NavigationInstruction(action="L", value=180),
-            "expected_facing": "W"
+            "expected_facing": "W",
         },
         {
             "test_name": "Ferry rotates 270 degrees",
             "angle": NavigationInstruction(action="R", value=270),
-            "expected_facing": "N"
+            "expected_facing": "N",
         },
         {
             "test_name": "Ferry rotates 270 degrees",
             "angle": NavigationInstruction(action="L", value=270),
-            "expected_facing": "S"
+            "expected_facing": "S",
         },
-
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_ferry_rotation(opts):
     """
@@ -138,36 +139,35 @@ def test_ferry_rotation(opts):
         {
             "test_name": "Ferry doesn't move",
             "direction": NavigationInstruction(action="N", value=0),
-            "expected_position": (0, 0)
+            "expected_position": (0, 0),
         },
         {
             "test_name": "Ferry moves north by 1 unit",
             "direction": NavigationInstruction(action="N", value=1),
-            "expected_position": (0, -1)
+            "expected_position": (0, -1),
         },
         {
             "test_name": "Ferry moves south by 1 unit",
             "direction": NavigationInstruction(action="S", value=1),
-            "expected_position": (0, 1)
+            "expected_position": (0, 1),
         },
         {
             "test_name": "Ferry moves east by 1 unit",
             "direction": NavigationInstruction(action="E", value=1),
-            "expected_position": (1, 0)
+            "expected_position": (1, 0),
         },
         {
             "test_name": "Ferry moves west by 1 unit",
             "direction": NavigationInstruction(action="W", value=1),
-            "expected_position": (-1, 0)
+            "expected_position": (-1, 0),
         },
         {
             "test_name": "Ferry moves in default direcction by 1 unit",
             "direction": NavigationInstruction(action="F", value=1),
-            "expected_position": (1, 0)
+            "expected_position": (1, 0),
         },
-
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_ferry_movement(opts):
     """
@@ -231,9 +231,8 @@ def test_ferry_movement(opts):
             "expected_position": (6, 0),
             "expected_facing": "N",
         },
-
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_ferry_execute(opts):
     """
@@ -295,9 +294,8 @@ def test_ferry_execute(opts):
             ],
             "expected_distance": 6,
         },
-
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_ferry_manhattan_distance(opts):
     """

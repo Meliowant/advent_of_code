@@ -19,22 +19,19 @@ from advent_of_code.year2020.day12.rain_risk_p2 import FerryX, solve_the_task
             "expected_y_pos": 0,
             "expected_facing": "E",
             "expected_wp_x_pos": 10,
-            "expected_wp_y_pos": -1
+            "expected_wp_y_pos": -1,
         },
         {
             "test_name": "Custom constructor",
-            "args": {
-                "facing": "N", "wp_x_pos": 5, "wp_y_pos": 5
-            },
+            "args": {"facing": "N", "wp_x_pos": 5, "wp_y_pos": 5},
             "expected_x_pos": 0,
             "expected_y_pos": 0,
             "expected_facing": "N",
             "expected_wp_x_pos": 5,
-            "expected_wp_y_pos": 5
+            "expected_wp_y_pos": 5,
         },
-
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_ferryx_creation(opts):
     """
@@ -65,17 +62,14 @@ def test_ferryx_creation(opts):
         },
         {
             "test_name": "Custom constructor",
-            "args": {
-                "facing": "N", "wp_x_pos": 5, "wp_y_pos": 5
-            },
+            "args": {"facing": "N", "wp_x_pos": 5, "wp_y_pos": 5},
             "expected_repr": (
                 "<FerryX(x_pos='0', y_pos='0', facing='N', "
                 "wp_x_pos='5', wp_y_pos='5')>"
             ),
         },
-
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_ferryx_repr(opts):
     """
@@ -96,50 +90,40 @@ def test_ferryx_repr(opts):
             "test_name": "No movement",
             "instructions": [],
             "expected_ferry_pos": (0, 0),
-            "expected_wp_pos": (10, -1)
+            "expected_wp_pos": (10, -1),
         },
         {
             "test_name": "Single move shipment",
-            "instructions": [
-                NavigationInstruction(action="F", value=10)
-            ],
+            "instructions": [NavigationInstruction(action="F", value=10)],
             "expected_ferry_pos": (100, -10),
-            "expected_wp_pos": (10, -1)
+            "expected_wp_pos": (10, -1),
         },
         {
             "test_name": "Single move way point to N3",
-            "instructions": [
-                NavigationInstruction(action="N", value=3)
-            ],
+            "instructions": [NavigationInstruction(action="N", value=3)],
             "expected_ferry_pos": (0, 0),
-            "expected_wp_pos": (10, -4)
+            "expected_wp_pos": (10, -4),
         },
         {
             "test_name": "Single move way point to S3",
-            "instructions": [
-                NavigationInstruction(action="S", value=3)
-            ],
+            "instructions": [NavigationInstruction(action="S", value=3)],
             "expected_ferry_pos": (0, 0),
-            "expected_wp_pos": (10, 2)
+            "expected_wp_pos": (10, 2),
         },
         {
             "test_name": "Single move way point to E3",
-            "instructions": [
-                NavigationInstruction(action="E", value=3)
-            ],
+            "instructions": [NavigationInstruction(action="E", value=3)],
             "expected_ferry_pos": (0, 0),
-            "expected_wp_pos": (13, -1)
+            "expected_wp_pos": (13, -1),
         },
         {
             "test_name": "Single move way point to W3",
-            "instructions": [
-                NavigationInstruction(action="W", value=3)
-            ],
+            "instructions": [NavigationInstruction(action="W", value=3)],
             "expected_ferry_pos": (0, 0),
-            "expected_wp_pos": (7, -1)
+            "expected_wp_pos": (7, -1),
         },
-     ],
-    ids=format_name
+    ],
+    ids=format_name,
 )
 def test_ferry_move(opts):
     """
@@ -158,43 +142,43 @@ def test_ferry_move(opts):
         {
             "test_name": "Rotate waypoint around the ship with L90",
             "instruction": NavigationInstruction(action="L", value=90),
-            "expected_facing": (-1, -10)
+            "expected_facing": (-1, -10),
         },
         {
             "test_name": "Rotate waypoint around the ship with R270",
             "instruction": NavigationInstruction(action="R", value=270),
-            "expected_facing": (-1, -10)
+            "expected_facing": (-1, -10),
         },
         {
             "test_name": "Rotate waypoint around the ship with L180",
             "instruction": NavigationInstruction(action="L", value=180),
-            "expected_facing": (-10, 1)
+            "expected_facing": (-10, 1),
         },
         {
             "test_name": "Rotate waypoint around the ship with R180",
             "instruction": NavigationInstruction(action="R", value=180),
-            "expected_facing": (-10, 1)
+            "expected_facing": (-10, 1),
         },
         {
             "test_name": "Rotate waypoint around the ship with L270",
             "instruction": NavigationInstruction(action="L", value=270),
-            "expected_facing": (1, 10)
+            "expected_facing": (1, 10),
         },
         {
             "test_name": "Rotate waypoint around the ship with R90",
             "instruction": NavigationInstruction(action="R", value=90),
-            "expected_facing": (1, 10)
+            "expected_facing": (1, 10),
         },
         pytest.param(
             {
                 "test_name": "Rotate waypoint with custom value",
                 "instruction": NavigationInstruction(action="R", value=100),
-                "expected_facing": (-1, -10)
+                "expected_facing": (-1, -10),
             },
-            marks=pytest.mark.xfail(raises=NotImplementedError)
-        )
+            marks=pytest.mark.xfail(raises=NotImplementedError),
+        ),
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_ferryx_rotate(opts):
     """

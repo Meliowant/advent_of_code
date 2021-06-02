@@ -39,6 +39,7 @@ class Ferry:
     """
     A ferry that tries to avoid a storm
     """
+
     def __init__(self, facing: str = None):
         """
         Create new ferry in its initial point

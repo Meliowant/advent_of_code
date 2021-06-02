@@ -10,8 +10,10 @@ class FerryX(Ferry):
     """
     An updated version of Ferry class
     """
-    def __init__(self, facing: str = "E", wp_x_pos: int = 10,
-                 wp_y_pos: int = -1) -> "FerryX":
+
+    def __init__(
+        self, facing: str = "E", wp_x_pos: int = 10, wp_y_pos: int = -1
+    ) -> "FerryX":
         """
         Extend existing Ferry with waypoint coordinates
         """
@@ -28,8 +30,8 @@ class FerryX(Ferry):
 
     def move(self, instruction):
         if instruction.action == "F":
-            self.x_pos += (self.wp_x_pos * instruction.value)
-            self.y_pos += (self.wp_y_pos * instruction.value)
+            self.x_pos += self.wp_x_pos * instruction.value
+            self.y_pos += self.wp_y_pos * instruction.value
         else:
             value = instruction.value
             if instruction.action in ["N", "W"]:

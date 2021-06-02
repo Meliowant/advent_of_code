@@ -17,7 +17,7 @@ from advent_of_code.year2020.day12.rain_risk_p1 import solve_the_task
             "expected_distance": 25,
         }
     ],
-    ids=format_name
+    ids=format_name,
 )
 def test_solve_the_task(opts):
     """

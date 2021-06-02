@@ -17,7 +17,7 @@ class FerryX(Ferry):
         """
         Extend existing Ferry with waypoint coordinates
         """
-        super(FerryX, self).__init__(facing)
+        super(FerryX, self).__init__()
         self.wp_x_pos = wp_x_pos
         self.wp_y_pos = wp_y_pos
 

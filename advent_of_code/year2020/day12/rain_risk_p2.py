@@ -3,6 +3,7 @@
 Solution for the second task on day 12
 """
 
+import math
 from advent_of_code.year2020.day12.common import read_instructions, Ferry
 
 
@@ -53,6 +54,24 @@ class FerryX(Ferry):
             self.wp_x_pos, self.wp_y_pos = -self.wp_y_pos, self.wp_x_pos
         else:
             raise NotImplementedError("Random rotation is not implemented")
+
+    def clever_rotate(self, instruction):
+        """
+        Allow ferry's rotation on any degree
+        """
+        hipo_value = math.sqrt(
+            self.wp_x_pos**2 + self.wp_y_pos**2
+        )
+        radians = math.asin(self.wp_y_pos / hipo_value)
+        degrees = math.degrees(radians)
+        if instruction.action == "R":
+            degrees += instruction.value
+        else:
+            degrees -= instruction.value
+        radians = math.radians(degrees)
+
+        self.wp_x_pos = round(math.cos(radians) * hipo_value)
+        self.wp_y_pos = round(math.sin(radians) * hipo_value)
 
 
 def solve_the_task(filename: str) -> int:

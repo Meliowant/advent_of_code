@@ -180,12 +180,57 @@ def test_ferry_move(opts):
     ],
     ids=format_name,
 )
-def test_ferryx_rotate(opts):
+def test_ferryx_rotate_old_fashion(opts):
     """
     Test rotation basic logic for FerryX
     """
     my_ferry = FerryX()
     my_ferry.rotate(opts["instruction"])
+    assert (my_ferry.wp_x_pos, my_ferry.wp_y_pos) == opts["expected_facing"]
+
+
+@pytest.mark.parametrize(
+    "opts",
+    [
+        {
+            "test_name": "Rotate waypoint around the ship with L90",
+            "instruction": NavigationInstruction(action="L", value=90),
+            "expected_facing": (-1, -10),
+        },
+        {
+            "test_name": "Rotate waypoint around the ship with R270",
+            "instruction": NavigationInstruction(action="R", value=270),
+            "expected_facing": (-1, -10),
+        },
+        {
+            "test_name": "Rotate waypoint around the ship with L180",
+            "instruction": NavigationInstruction(action="L", value=180),
+            "expected_facing": (-10, 1),
+        },
+        {
+            "test_name": "Rotate waypoint around the ship with R180",
+            "instruction": NavigationInstruction(action="R", value=180),
+            "expected_facing": (-10, 1),
+        },
+        {
+            "test_name": "Rotate waypoint around the ship with L270",
+            "instruction": NavigationInstruction(action="L", value=270),
+            "expected_facing": (1, 10),
+        },
+        {
+            "test_name": "Rotate waypoint around the ship with R90",
+            "instruction": NavigationInstruction(action="R", value=90),
+            "expected_facing": (1, 10),
+        },
+    ],
+    ids=format_name,
+)
+def test_ferryx_rotate(opts):
+    """
+    Test rotation advanced logic for FerryX
+    """
+    my_ferry = FerryX()
+    my_ferry.clever_rotate(opts["instruction"])
     assert (my_ferry.wp_x_pos, my_ferry.wp_y_pos) == opts["expected_facing"]
 
 

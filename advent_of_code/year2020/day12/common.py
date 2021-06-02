@@ -20,22 +20,25 @@ def read_instructions(filename: str = None) -> list:
     retval = []
     f_name = pathlib.Path(filename)
     instr_re = r"^(?P<action>[a-zA-Z])(?P<value>-?[0-9]+)$"
-    with f_name.open("r") as f:
-        line = f.readline()
+    with f_name.open("r") as _:
+        line = _.readline()
         while line:
             parsed_line = re.match(instr_re, line)
             if parsed_line:
                 retval.append(
                     NavigationInstruction(
                         action=parsed_line.groupdict().get("action"),
-                        value=int(parsed_line.groupdict().get("value"))
+                        value=int(parsed_line.groupdict().get("value")),
                     )
                 )
-            line = f.readline()
+            line = _.readline()
     return retval
 
 
 class Ferry:
+    """
+    A ferry that tries to avoid a storm
+    """
     def __init__(self, facing: str = None):
         """
         Create new ferry in its initial point
@@ -59,12 +62,14 @@ class Ferry:
         Rotate ferry
         """
         degs_to_facing = [(0, "E"), (90, "S"), (180, "W"), (270, "N")]
-        value = -instruction.value \
-            if instruction.action == "L" \
+        value = (
+            -instruction.value
+            if instruction.action == "L"
             else instruction.value
+        )
         self.angle += value
         self.angle = abs(self.angle % 360)
-        deviations = {abs(df[0]-self.angle): df[1] for df in degs_to_facing}
+        deviations = {abs(df[0] - self.angle): df[1] for df in degs_to_facing}
         self.facing = deviations[min(deviations.keys())]
         return self.facing
 
@@ -75,10 +80,13 @@ class Ferry:
         direction = instruction.action
         units = instruction.value
 
-        target_units = -units\
-            if direction in ["N", "W"] or \
-            direction == "F" and self.facing in ["N", "W"]\
+        target_units = (
+            -units
+            if direction in ["N", "W"]
+            or direction == "F"
+            and self.facing in ["N", "W"]
             else units
+        )
 
         if direction in ["N", "S"] or (
             direction == "F" and self.facing in ["N", "S"]

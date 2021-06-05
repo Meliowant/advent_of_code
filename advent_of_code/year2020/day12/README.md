@@ -26,9 +26,7 @@ it is short enough to grab the idea.
 ## What did I learn on this day
 1. Problems must be solved in the most fast way. More efficient (or universal,
    feel free to name it if you want so) eolution will take much more time.
-
 2. Universal code can be as short as the robust one, but it requires more
    experience to write it efficiently.
-
 3. School geometry classes are the things that will catch you when you don't
    expect for that.

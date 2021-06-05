@@ -13,14 +13,19 @@ class FerryX(Ferry):
     """
 
     def __init__(
-        self, facing: str = "E", wp_x_pos: int = 10, wp_y_pos: int = -1
+        self, facing: str = "E", wp_x_pos: int = 10, wp_y_pos: int = 1
     ) -> "FerryX":
         """
         Extend existing Ferry with waypoint coordinates
         """
-        super().__init__(facing)
+        self.x_pos = 0
+        self.y_pos = 0
         self.wp_x_pos = wp_x_pos
         self.wp_y_pos = wp_y_pos
+        hipo_value = math.sqrt(self.wp_x_pos ** 2 + self.wp_y_pos ** 2)
+        self.facing = round(
+            math.degrees(math.asin(self.wp_y_pos / hipo_value))
+        )
 
     def __repr__(self):
         return (
@@ -35,7 +40,7 @@ class FerryX(Ferry):
             self.y_pos += self.wp_y_pos * instruction.value
         else:
             value = instruction.value
-            if instruction.action in ["N", "W"]:
+            if instruction.action in ["S", "W"]:
                 value = -value
 
             if instruction.action in ["N", "S"]:
@@ -43,35 +48,39 @@ class FerryX(Ferry):
             else:
                 self.wp_x_pos += value
 
-    def rotate(self, instruction):
+    def legacy_rotate(self, instruction):
+        """
+        Waypoint rotation logic for angles 90, 180, 270 left or right
+        """
         act = instruction.action
         val = instruction.value
         if (act, val) in [("L", 90), ("R", 270)]:
-            self.wp_x_pos, self.wp_y_pos = self.wp_y_pos, -self.wp_x_pos
+            self.wp_x_pos, self.wp_y_pos = -self.wp_y_pos, self.wp_x_pos
         elif val == 180:
             self.wp_x_pos, self.wp_y_pos = -self.wp_x_pos, -self.wp_y_pos
         elif (act, val) in [("L", 270), ("R", 90)]:
-            self.wp_x_pos, self.wp_y_pos = -self.wp_y_pos, self.wp_x_pos
+            self.wp_x_pos, self.wp_y_pos = self.wp_y_pos, -self.wp_x_pos
         else:
             raise NotImplementedError("Random rotation is not implemented")
 
-    def clever_rotate(self, instruction):
+    def rotate(self, instruction):
         """
         Allow ferry's rotation on any degree
         """
-        hipo_value = math.sqrt(
-            self.wp_x_pos**2 + self.wp_y_pos**2
+        hipo_value = math.sqrt(self.wp_x_pos ** 2 + self.wp_y_pos ** 2)
+        degrees = round(
+            math.degrees(math.acos(self.wp_x_pos / hipo_value))
         )
-        radians = math.asin(self.wp_y_pos / hipo_value)
-        degrees = math.degrees(radians)
-        if instruction.action == "R":
-            degrees += instruction.value
-        else:
-            degrees -= instruction.value
-        radians = math.radians(degrees)
+        if self.wp_y_pos < 0:
+            degrees = 360 - degrees
 
-        self.wp_x_pos = round(math.cos(radians) * hipo_value)
-        self.wp_y_pos = round(math.sin(radians) * hipo_value)
+        degrees += (-1 if instruction.action == "R" else 1) * instruction.value
+
+        self.wp_x_pos = round(hipo_value * math.cos(math.radians(degrees)))
+        self.wp_y_pos = round(hipo_value * math.sin(math.radians(degrees)))
+        self.facing = round(
+            math.degrees(math.asin(self.wp_y_pos / hipo_value))
+        )
 
 
 def solve_the_task(filename: str) -> int:

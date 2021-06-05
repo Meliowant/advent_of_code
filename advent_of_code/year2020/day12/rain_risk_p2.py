@@ -18,6 +18,7 @@ class FerryX(Ferry):
         """
         Extend existing Ferry with waypoint coordinates
         """
+        super().__init__()
         self.x_pos = 0
         self.y_pos = 0
         self.wp_x_pos = wp_x_pos
@@ -68,9 +69,7 @@ class FerryX(Ferry):
         Allow ferry's rotation on any degree
         """
         hipo_value = math.sqrt(self.wp_x_pos ** 2 + self.wp_y_pos ** 2)
-        degrees = round(
-            math.degrees(math.acos(self.wp_x_pos / hipo_value))
-        )
+        degrees = round(math.degrees(math.acos(self.wp_x_pos / hipo_value)))
         if self.wp_y_pos < 0:
             degrees = 360 - degrees
 
